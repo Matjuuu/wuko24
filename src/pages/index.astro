@@ -1,0 +1,207 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import CallBlock from '../components/CallBlock.astro';
+import PhoneIcon from '../components/PhoneIcon.astro';
+import { site } from '../config/site';
+import { services } from '../data/services';
+import { areas } from '../data/areas';
+import { reviews, homeFaq } from '../data/content';
+import { faqSchema } from '../lib/schema';
+
+const triage = [
+  { q: 'Woda nie schodzi z odpływu albo się cofa', href: '/uslugi/udraznianie-kanalizacji-wuko/', a: 'Udrażnianie WUKO' },
+  { q: 'Zatkała się toaleta, zlew lub pion', href: '/uslugi/udraznianie-rur-spirala/', a: 'Udrażnianie spiralą' },
+  { q: 'Zator ciągle wraca', href: '/uslugi/inspekcja-kamera/', a: 'Inspekcja kamerą' },
+  { q: 'Pękła rura, cieknie, zalało mieszkanie', href: '/uslugi/pogotowie-hydrauliczne/', a: 'Pogotowie hydrauliczne' },
+  { q: 'Nowa instalacja, gaz, CO, przegląd', href: '/uslugi/instalacje-wod-kan-gaz-co/', a: 'Instalacje' },
+];
+---
+<Base
+  title="Udrażnianie kanalizacji WUKO i hydraulik 24/7 – Kalisz, Ostrów Wlkp."
+  description="Pogotowie kanalizacyjne i hydrauliczne w Kaliszu i Ostrowie Wielkopolskim. Udrażnianie WUKO, spiralą, kamera, zalania, instalacje. Całą dobę: 793 149 951."
+  schema={[faqSchema(homeFaq)]}
+>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-main">
+        <p class="hero-pre">Zatkany odpływ, cofająca się woda, pęknięta rura?</p>
+        <h1>Pogotowie kanalizacyjne i hydraulik 24/7 w Kaliszu i Ostrowie Wielkopolskim</h1>
+        <a class="hero-phone" href={`tel:${site.phones.main.tel}`} aria-label={`Zadzwoń: ${site.phones.main.display}`}>
+          <PhoneIcon /><span>{site.phones.main.display}</span>
+        </a>
+        <p class="hero-note">
+          Odbieramy całą dobę, także w nocy i w święta. Udrażnianie WUKO również pod{' '}
+          <a href={`tel:${site.phones.second.tel}`}>{site.phones.second.display}</a>.
+        </p>
+      </div>
+      <nav class="triage" aria-labelledby="triage-h">
+        <h2 id="triage-h">Co się dzieje?</h2>
+        <ul>
+          {triage.map((t) => (
+            <li><a href={t.href}><span class="t-q">{t.q}</span><span class="t-a">{t.a}</span></a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="prose">
+        <h2>Kanalizacja i hydraulika w jednych rękach</h2>
+        <p class="lead">
+          Udrażniamy kanalizację wodą pod wysokim ciśnieniem (WUKO) i spiralą elektryczną, sprawdzamy rury kamerą,
+          usuwamy awarie hydrauliczne i wykonujemy instalacje wodne, gazowe i CO. Baza firmy jest w Kaliszu,
+          przy ul. {site.address.street}. Dojeżdżamy do Kalisza, Ostrowa Wielkopolskiego i okolicznych miejscowości.
+        </p>
+      </div>
+      <ul class="svc">
+        {services.map((s) => (
+          <li>
+            <a href={`/uslugi/${s.slug}/`}>
+              <h3>{s.name}</h3>
+              <p>{s.description.split('.')[0]}.</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <hr class="pipe" />
+
+  <section class="section section-white">
+    <div class="wrap wuko">
+      <div class="prose">
+        <h2>Jak działa czyszczenie WUKO</h2>
+        <p>
+          Do rury wprowadzamy wąż z głowicą, która wyrzuca wodę pod wysokim ciśnieniem do tyłu i na boki.
+          Odrzut wciąga głowicę w głąb przewodu, a strumienie rozbijają zator i zmywają tłuszcz i osad ze ścianek.
+          Bez kucia, bez chemii i bez rozbierania instalacji.
+        </p>
+        <p><a href="/uslugi/udraznianie-kanalizacji-wuko/">Więcej o udrażnianiu WUKO</a></p>
+      </div>
+      <figure class="diagram">
+        <svg viewBox="0 0 560 200" role="img" aria-labelledby="dg-t">
+          <title id="dg-t">Głowica WUKO w rurze: strumienie wody skierowane do tyłu ciągną ją w stronę zatoru</title>
+          <rect x="10" y="60" width="540" height="80" rx="10" fill="#e6edf0" stroke="#16303f" stroke-width="4"/>
+          <path d="M440 64 h106 v72 h-106 c20-18 20-54 0-72z" fill="#9b8a6b"/>
+          <text x="492" y="105" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">zator</text>
+          <line x1="20" y1="100" x2="300" y2="100" stroke="#16303f" stroke-width="10" stroke-linecap="round"/>
+          <path d="M300 86 h40 l18 14 l-18 14 h-40z" fill="#ffc72c" stroke="#16303f" stroke-width="3"/>
+          <g stroke="#2f8fc9" stroke-width="4" stroke-linecap="round">
+            <line x1="305" y1="88" x2="250" y2="66"/><line x1="305" y1="112" x2="250" y2="134"/>
+            <line x1="300" y1="92" x2="235" y2="76"/><line x1="300" y1="108" x2="235" y2="124"/>
+            <line x1="358" y1="100" x2="425" y2="100"/>
+          </g>
+          <text x="160" y="40" text-anchor="middle" font-size="15" fill="#16303f">strumienie do tyłu ciągną głowicę</text>
+          <text x="390" y="175" text-anchor="middle" font-size="15" fill="#16303f">strumień czołowy rozbija zator</text>
+        </svg>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Co mówią klienci</h2>
+      <div class="reviews">
+        {reviews.map((r) => (
+          <blockquote>
+            <p>{r.text}</p>
+            <footer><strong>{r.name}</strong>, {r.job.toLowerCase()}</footer>
+          </blockquote>
+        ))}
+      </div>
+      <p><a href={site.googleProfileUrl} rel="noopener">Zobacz opinie w Google</a> albo wystaw własną po wykonanej usłudze.</p>
+    </div>
+  </section>
+
+  {site.photos.length > 0 && (
+    <section class="section section-white">
+      <div class="wrap">
+        <h2>Nasze realizacje</h2>
+        <div class="photos">
+          {site.photos.map((p) => <img src={p.src} alt={p.alt} loading="lazy" width="600" height="400" />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="section section-white">
+    <div class="wrap areas">
+      <div class="prose">
+        <h2>Gdzie dojeżdżamy</h2>
+        <p>
+          Kalisz i okolice oraz Ostrów Wielkopolski i okolice.{' '}
+          {site.nearbyTowns.length > 0 && <>Regularnie jeździmy m.in. do: {site.nearbyTowns.join(', ')}. </>}
+          Nie ma Twojej miejscowości? Zadzwoń, powiemy od razu, czy dojedziemy.
+        </p>
+      </div>
+      <ul class="area-links">
+        {areas.map((a) => <li><a href={`/obszar/${a.slug}/`}>Hydraulik i WUKO {a.locative}</a></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap"><Faq items={homeFaq} /></div>
+  </section>
+
+  <CallBlock />
+</Base>
+
+<style>
+  .hero { background: var(--steel); color: #fff; padding: clamp(32px, 6vw, 72px) 0 clamp(40px, 7vw, 88px); }
+  .hero-grid { display: grid; gap: 40px; }
+  @media (min-width: 980px) { .hero-grid { grid-template-columns: 1.45fr 1fr; align-items: end; } }
+  .hero-pre { color: #b9cbd4; font-size: var(--s1); margin-bottom: 0.6em; }
+  .hero h1 { font-size: clamp(1.9rem, 4.4vw, 3rem); max-width: 22ch; margin-bottom: 0.4em; }
+  .hero-phone {
+    display: inline-flex; align-items: center; gap: 0.18em;
+    color: var(--hivis); text-decoration: none;
+    font-size: var(--s5); font-weight: 900; font-variation-settings: 'wdth' 62;
+    line-height: 0.95; letter-spacing: -0.02em; white-space: nowrap;
+    margin: 0.05em 0 0.2em;
+  }
+  .hero-phone :global(svg) { width: 0.62em; height: 0.62em; stroke-width: 2.6; }
+  .hero-phone:hover { color: #ffd65c; }
+  .hero-phone:hover span { text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.08em; }
+  .hero-note { color: #cfdbe1; }
+  .hero-note a { color: #fff; font-weight: 700; }
+
+  .triage { background: #0f2531; border-radius: var(--radius); padding: 20px 20px 8px; }
+  .triage h2 { font-size: var(--s2); margin: 0 0 0.4em; }
+  .triage ul { list-style: none; padding: 0; margin: 0; }
+  .triage li { margin: 0; border-top: 1px solid #23404f; }
+  .triage a { display: flex; flex-direction: column; padding: 12px 0; text-decoration: none; color: #fff; }
+  .t-q { font-weight: 600; }
+  .t-a { color: var(--hivis); font-size: var(--s-1); }
+  .triage a:hover .t-q { text-decoration: underline; }
+
+  .svc { list-style: none; padding: 0; margin: 2em 0 0; max-width: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); border-top: 2px solid var(--steel); }
+  .svc li { margin: 0; border-bottom: 1px solid var(--line); }
+  .svc a { display: block; padding: 20px 20px 18px 0; color: inherit; text-decoration: none; height: 100%; }
+  .svc h3 { font-size: var(--s2); margin-bottom: 0.25em; color: var(--steel); }
+  .svc p { margin: 0; color: var(--muted); }
+  .svc a:hover h3 { text-decoration: underline; text-decoration-thickness: 2px; }
+
+  .wuko { display: grid; gap: 32px; align-items: center; }
+  @media (min-width: 900px) { .wuko { grid-template-columns: 1fr 1.1fr; } }
+  .wuko h2 { margin-top: 0; }
+  .diagram { margin: 0; }
+  .diagram svg { width: 100%; height: auto; font-family: var(--font); }
+
+  .reviews { columns: 300px; column-gap: 32px; margin-bottom: 1.5em; }
+  blockquote { break-inside: avoid; margin: 0 0 28px; padding: 0 0 0 18px; border-left: 4px solid var(--hivis); }
+  blockquote p { margin-bottom: 0.4em; }
+  blockquote footer { font-size: var(--s-1); color: var(--muted); }
+
+  .photos { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  .photos img { border-radius: var(--radius); aspect-ratio: 3 / 2; object-fit: cover; }
+
+  .areas h2 { margin-top: 0; }
+  .area-links { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+  .area-links a { display: inline-block; padding: 12px 18px; border: 2px solid var(--steel); border-radius: var(--radius); font-weight: 700; text-decoration: none; color: var(--steel); }
+  .area-links a:hover { background: var(--steel); color: #fff; }
+</style>

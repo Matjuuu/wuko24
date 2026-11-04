@@ -1,0 +1,46 @@
+---
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import CallBlock from '../../components/CallBlock.astro';
+import { services } from '../../data/services';
+import { breadcrumbSchema } from '../../lib/schema';
+
+const crumbs = [
+  { name: 'Strona główna', href: '/' },
+  { name: 'Usługi', href: '/uslugi/' },
+];
+const list = {
+  '@type': 'ItemList',
+  itemListElement: services.map((s, i) => ({ '@type': 'ListItem', position: i + 1, url: `https://wuko-hydraulik.pl/uslugi/${s.slug}/`, name: s.name })),
+};
+---
+<Base
+  title="Usługi hydrauliczne i kanalizacyjne – Kalisz, Ostrów Wlkp."
+  description="Udrażnianie kanalizacji WUKO i spiralą, inspekcja kamerą, pogotowie hydrauliczne 24/7, instalacje wodne, gazowe i CO, pompy ciepła. Kalisz i Ostrów Wlkp."
+  schema={[breadcrumbSchema(crumbs), list]}
+>
+  <Crumbs items={crumbs} />
+  <header class="wrap page-head">
+    <h1>Usługi hydrauliczne i kanalizacyjne</h1>
+    <p class="lead prose">Od zatkanego zlewu po nową instalację gazową. Wybierz usługę, żeby zobaczyć szczegóły, albo po prostu zadzwoń i opisz problem.</p>
+  </header>
+  <section class="section section-white">
+    <div class="wrap">
+      {services.map((s) => (
+        <section class="row">
+          <h2><a href={`/uslugi/${s.slug}/`}>{s.name}</a></h2>
+          <p>{s.lead}</p>
+        </section>
+      ))}
+    </div>
+  </section>
+  <CallBlock />
+</Base>
+
+<style>
+  .row { padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .row:first-child { padding-top: 0; }
+  .row h2 { margin: 0 0 0.3em; font-size: var(--s2); }
+  .row h2 a { color: var(--steel); }
+  .row p { margin: 0; }
+</style>

@@ -1,0 +1,97 @@
+---
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import Faq from '../../components/Faq.astro';
+import CallBlock from '../../components/CallBlock.astro';
+import { site } from '../../config/site';
+import { posts } from '../../data/posts';
+import { breadcrumbSchema, faqSchema, BUSINESS_ID } from '../../lib/schema';
+
+const p = posts.find((x) => x.slug === 'czyszczenie-kanalizacji-metoda-wuko')!;
+const url = `${site.url}/blog/${p.slug}/`;
+const crumbs = [
+  { name: 'Strona główna', href: '/' },
+  { name: 'Poradnik', href: '/blog/' },
+  { name: 'Czyszczenie kanalizacji WUKO', href: `/blog/${p.slug}/` },
+];
+const faq = [
+  { q: 'Czy WUKO jest lepsze od chemicznych udrażniaczy?', a: 'Przy tłuszczu i osadzie na całej długości rury tak. Chemia działa tylko w miejscu, do którego dotrze, a resztki środka zostają w instalacji. WUKO zmywa osad mechanicznie, samą wodą.' },
+  { q: 'Jak często czyścić kanalizację metodą WUKO?', a: 'W domu zwykle tylko wtedy, gdy pojawia się problem. W lokalach gastronomicznych i budynkach wielorodzinnych opłaca się czyszczenie okresowe, bo tłuszcz narasta szybko.' },
+];
+const article = {
+  '@type': 'BlogPosting',
+  '@id': `${url}#artykul`,
+  headline: p.title,
+  description: p.description,
+  datePublished: p.published,
+  dateModified: p.updated,
+  inLanguage: 'pl-PL',
+  mainEntityOfPage: url,
+  image: `${site.url}/og.png`,
+  author: { '@id': BUSINESS_ID },
+  publisher: { '@id': BUSINESS_ID },
+};
+---
+<Base title={p.title} description={p.description} ogType="article" schema={[article, breadcrumbSchema(crumbs), faqSchema(faq)]}>
+  <Crumbs items={crumbs} />
+  <article>
+    <header class="wrap page-head">
+      <h1>{p.title}</h1>
+      <p class="muted">Aktualizacja: <time datetime={p.updated}>4 listopada 2026</time></p>
+      <p class="lead prose">
+        WUKO to czyszczenie kanalizacji wodą pod wysokim ciśnieniem. Usuwa zator i jednocześnie zmywa tłuszcz i osad
+        ze ścianek rury, dlatego problem nie wraca tak szybko jak po przepchaniu spiralą czy chemii.
+      </p>
+    </header>
+    <div class="section section-white">
+      <div class="wrap prose">
+        <h2 class="first">Jak dbać o rury na co dzień</h2>
+        <ul>
+          <li>Nie wylewaj tłuszczu do zlewu ani toalety. Po ostygnięciu zbierz go do słoika i wyrzuć z odpadami.</li>
+          <li>Używaj sitek w zlewie, wannie i brodziku – zatrzymają resztki jedzenia i włosy.</li>
+          <li>Do toalety wrzucaj tylko papier toaletowy. Chusteczki nawilżane, patyczki i środki higieniczne się nie rozpuszczają.</li>
+          <li>Jeśli używasz udrażniaczy, wybieraj środki przeznaczone do Twojego rodzaju rur i stosuj je zgodnie z instrukcją.</li>
+        </ul>
+
+        <h2>Kiedy domowe sposoby nie wystarczą</h2>
+        <p>
+          Przepychacz i sitko wystarczą, gdy zator jest tuż przy odpływie. Jeśli woda cofa się w kilku miejscach naraz,
+          zator wraca po kilku dniach albo z kanalizacji czuć zapach, problem leży głębiej. Wtedy potrzebne jest
+          czyszczenie całego przewodu.
+        </p>
+
+        <h2>Jak działa metoda WUKO</h2>
+        <p>
+          Do rury wprowadza się wąż z głowicą. Część dysz kieruje wodę do tyłu – odrzut wciąga głowicę w głąb rury –
+          a dysza czołowa rozbija zator. Strumienie omywają rurę na całym obwodzie, więc tłuszcz, kamień i osad
+          zostają zmyte, a nie tylko przebite. Metoda działa w pionach i poziomach, bez kucia i bez chemii.
+        </p>
+
+        <h2>WUKO, spirala czy chemia?</h2>
+        <ul>
+          <li><strong>Spirala</strong> – szybka przy pojedynczym zatorze z papieru, włosów czy przedmiotu. Nie oczyści ścianek z tłuszczu.</li>
+          <li><strong>Chemia</strong> – czasem pomoże przy drobnym zatorze blisko odpływu. Przy większym zostaje w rurze i utrudnia dalszą pracę.</li>
+          <li><strong>WUKO</strong> – najlepsza przy tłuszczu, osadzie, piasku i długich odcinkach, także w przyłączach.</li>
+        </ul>
+        <p>
+          Gdy przyczyna nie jest jasna, warto sprawdzić rurę <a href="/uslugi/inspekcja-kamera/">kamerą inspekcyjną</a>:
+          wtedy widać, czy wystarczy czyszczenie, czy rura jest uszkodzona.
+        </p>
+
+        <h2>Czyszczenie WUKO w Kaliszu i Ostrowie</h2>
+        <p>
+          Udrażniamy kanalizację metodą WUKO w Kaliszu, Ostrowie Wielkopolskim i okolicach, całą dobę.
+          Szczegóły usługi znajdziesz na stronie <a href="/uslugi/udraznianie-kanalizacji-wuko/">udrażnianie kanalizacji WUKO</a>.
+        </p>
+
+        <Faq items={faq} heading="Pytania o WUKO" />
+      </div>
+    </div>
+  </article>
+  <CallBlock />
+</Base>
+
+<style>
+  .first { margin-top: 0; }
+  .faq { margin-top: 2.5em; }
+</style>

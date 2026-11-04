@@ -1,0 +1,47 @@
+---
+import { site } from '../config/site';
+import PhoneIcon from './PhoneIcon.astro';
+const path = Astro.url.pathname;
+const nav = [
+  { href: '/uslugi/', label: 'Usługi' },
+  { href: '/obszar/kalisz/', label: 'Kalisz' },
+  { href: '/obszar/ostrow-wielkopolski/', label: 'Ostrów Wlkp.' },
+  { href: '/blog/', label: 'Poradnik' },
+  { href: '/kontakt/', label: 'Kontakt' },
+];
+---
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="logo" href="/" aria-label={`${site.name} – strona główna`}>
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="7" fill="#ffc72c"/><path d="M8 14h14a6 6 0 0 1 6 6v12" fill="none" stroke="#16303f" stroke-width="5"/><rect x="22" y="9" width="5" height="10" rx="1.5" fill="#16303f"/><rect x="24" y="28" width="10" height="5" rx="1.5" fill="#16303f"/></svg>
+      <span><strong>WUKO Hydraulik</strong><small>Pogotowie 24/7</small></span>
+    </a>
+    <nav aria-label="Główna">
+      <ul>
+        {nav.map((n) => (
+          <li><a href={n.href} aria-current={path.startsWith(n.href) ? 'page' : undefined}>{n.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <a class="btn btn-call hdr-call" href={`tel:${site.phones.main.tel}`}><PhoneIcon />{site.phones.main.display}</a>
+  </div>
+</header>
+
+<style>
+  .hdr { background: var(--steel); color: #fff; position: sticky; top: 0; z-index: 20; }
+  .hdr-in { display: flex; align-items: center; gap: 24px; min-height: 64px; }
+  .logo { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; margin-right: auto; }
+  .logo svg { width: 38px; height: 38px; flex: none; }
+  .logo span { display: flex; flex-direction: column; line-height: 1.1; }
+  .logo strong { font-variation-settings: 'wdth' 72; font-size: 1.25rem; font-weight: 800; }
+  .logo small { font-size: 0.8rem; color: #a9bcc7; }
+  nav ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; max-width: none; }
+  nav li { margin: 0; }
+  nav a { color: #dce6eb; text-decoration: none; padding: 8px 10px; border-radius: 4px; font-weight: 600; font-size: 0.95rem; }
+  nav a:hover, nav a[aria-current='page'] { color: #fff; background: var(--steel-2); }
+  .hdr-call { padding: 0.6em 1em; }
+  @media (max-width: 899px) {
+    nav, .hdr-call { display: none; }
+    .hdr { position: static; }
+  }
+</style>

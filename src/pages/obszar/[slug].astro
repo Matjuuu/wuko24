@@ -1,0 +1,56 @@
+---
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import CallBlock from '../../components/CallBlock.astro';
+import PhoneIcon from '../../components/PhoneIcon.astro';
+import { site } from '../../config/site';
+import { services } from '../../data/services';
+import { areas, type Area } from '../../data/areas';
+import { breadcrumbSchema, BUSINESS_ID } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return areas.map((a) => ({ params: { slug: a.slug }, props: { a } }));
+}
+const { a } = Astro.props as { a: Area };
+const crumbs = [
+  { name: 'Strona główna', href: '/' },
+  { name: a.city, href: `/obszar/${a.slug}/` },
+];
+const page = {
+  '@type': 'WebPage',
+  name: a.title,
+  about: { '@id': BUSINESS_ID },
+  spatialCoverage: { '@type': 'City', name: a.city },
+};
+---
+<Base title={a.title} description={a.description} schema={[breadcrumbSchema(crumbs), page]}>
+  <Crumbs items={crumbs} />
+  <header class="wrap page-head">
+    <h1>Hydraulik i udrażnianie kanalizacji {a.locative}</h1>
+    {a.intro.map((p, i) => <p class={i === 0 ? 'lead' : ''}>{p}</p>)}
+    <a class="btn btn-call" href={`tel:${site.phones.main.tel}`}><PhoneIcon />Zadzwoń: {site.phones.main.display}</a>
+    <dl class="facts">
+      <dt>Dostępność</dt><dd>{site.hours}</dd>
+      <dt>Baza</dt><dd>ul. {site.address.street}, {site.address.postalCode} {site.address.city}</dd>
+      <dt>Telefony</dt><dd>{site.phones.main.display} (hydraulik i WUKO), {site.phones.second.display} (WUKO)</dd>
+    </dl>
+  </header>
+
+  <section class="section section-white">
+    <div class="wrap">
+      <h2 class="first">Usługi {a.locative}</h2>
+      <ul class="list">
+        {services.map((s) => (
+          <li><a href={`/uslugi/${s.slug}/`}><strong>{s.name}</strong></a> – {s.facts[0].value}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CallBlock heading={`Awaria ${a.locative}? Zadzwoń`} />
+</Base>
+
+<style>
+  .first { margin-top: 0; }
+  .list li { margin-bottom: 0.7em; }
+</style>

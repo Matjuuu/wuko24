@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config/site';
+---
+<Base title="Nie ma takiej strony" description="Strona nie istnieje." noindex>
+  <section class="section">
+    <div class="wrap prose">
+      <h1>Nie ma takiej strony</h1>
+      <p class="lead">Adres mógł się zmienić po przebudowie serwisu. Przejdź do <a href="/uslugi/">listy usług</a> albo zadzwoń: <a href={`tel:${site.phones.main.tel}`}>{site.phones.main.display}</a>.</p>
+    </div>
+  </section>
+</Base>

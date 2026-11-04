@@ -1,0 +1,27 @@
+---
+import { site } from '../config/site';
+import PhoneIcon from './PhoneIcon.astro';
+interface Props { heading?: string; text?: string }
+const { heading = 'Masz awarię? Zadzwoń teraz', text = 'Odbieramy całą dobę. Opisz problem, a powiemy, kiedy przyjedziemy i ile to mniej więcej kosztuje.' } = Astro.props;
+---
+<section class="section section-steel cta">
+  <div class="wrap cta-in">
+    <div>
+      <h2>{heading}</h2>
+      <p class="muted">{text}</p>
+    </div>
+    <div class="cta-actions">
+      <a class="btn btn-call big" href={`tel:${site.phones.main.tel}`}><PhoneIcon />{site.phones.main.display}</a>
+      <a class="btn btn-line" href={`tel:${site.phones.second.tel}`}>WUKO: {site.phones.second.display}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-in { display: grid; gap: 24px 48px; align-items: center; }
+  @media (min-width: 800px) { .cta-in { grid-template-columns: 1.3fr 1fr; } }
+  .cta h2 { margin-top: 0; }
+  .cta p { margin: 0; }
+  .cta-actions { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+  .big { font-size: var(--s2); font-variation-settings: 'wdth' 72; font-weight: 800; padding: 0.55em 0.9em; }
+</style>

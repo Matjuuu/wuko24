@@ -1,0 +1,52 @@
+---
+import { site } from '../config/site';
+import { services } from '../data/services';
+import { areas } from '../data/areas';
+const year = new Date().getFullYear();
+---
+<footer class="ftr">
+  <div class="wrap ftr-grid">
+    <div>
+      <p class="ftr-name">{site.name}</p>
+      <address>
+        ul. {site.address.street}<br />
+        {site.address.postalCode} {site.address.city}<br />
+        <a href={`tel:${site.phones.main.tel}`}>{site.phones.main.display}</a> – {site.phones.main.label}<br />
+        <a href={`tel:${site.phones.second.tel}`}>{site.phones.second.display}</a> – {site.phones.second.label}
+        {site.email && <><br /><a href={`mailto:${site.email}`}>{site.email}</a></>}
+      </address>
+      <p>{site.hours}</p>
+      {site.legalName && <p class="small">{site.legalName}{site.nip && `, NIP ${site.nip}`}</p>}
+    </div>
+    <div>
+      <p class="ftr-h">Usługi</p>
+      <ul>{services.map((s) => <li><a href={`/uslugi/${s.slug}/`}>{s.name}</a></li>)}</ul>
+    </div>
+    <div>
+      <p class="ftr-h">Gdzie działamy</p>
+      <ul>
+        {areas.map((a) => <li><a href={`/obszar/${a.slug}/`}>{a.city} i okolice</a></li>)}
+      </ul>
+      <p class="ftr-h">Więcej</p>
+      <ul>
+        <li><a href="/blog/">Poradnik</a></li>
+        <li><a href="/kontakt/">Kontakt i dojazd</a></li>
+        <li><a href={site.googleProfileUrl} rel="noopener">Opinie w Google</a></li>
+        <li><a href="/polityka-prywatnosci/">Polityka prywatności</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap small ftr-bottom">© {year} {site.name}. Strona: <a href="mailto:mmajewski7@gmail.com">EMMS</a></div>
+</footer>
+
+<style>
+  .ftr { background: var(--ink); color: #c9d6dd; padding: 56px 0 24px; font-size: 0.95rem; }
+  .ftr a { color: #fff; }
+  .ftr-grid { display: grid; gap: 32px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .ftr-name { font-variation-settings: 'wdth' 72; font-weight: 800; font-size: 1.5rem; color: #fff; margin-bottom: 0.4em; }
+  .ftr-h { font-weight: 700; color: #fff; margin: 0 0 0.4em; }
+  .ftr ul { list-style: none; padding: 0; margin: 0 0 1.4em; }
+  address { font-style: normal; margin-bottom: 1em; }
+  .small { font-size: 0.85rem; }
+  .ftr-bottom { margin-top: 32px; padding-top: 20px; border-top: 1px solid #2a3c47; color: #8ea2ad; }
+</style>

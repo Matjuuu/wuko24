@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { posts } from '../../data/posts';
+import { breadcrumbSchema } from '../../lib/schema';
+const crumbs = [
+  { name: 'Strona główna', href: '/' },
+  { name: 'Poradnik', href: '/blog/' },
+];
+const fmt = (d: string) => new Date(d).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<Base
+  title="Poradnik: kanalizacja i hydraulika w domu | WUKO Hydraulik Kalisz"
+  description="Praktyczne porady o udrażnianiu kanalizacji, czyszczeniu WUKO i awariach hydraulicznych od fachowców z Kalisza."
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <Crumbs items={crumbs} />
+  <header class="wrap page-head">
+    <h1>Poradnik</h1>
+    <p class="lead prose">Co zrobić, zanim przyjedzie hydraulik, i jak nie dopuścić do kolejnej awarii.</p>
+  </header>
+  <section class="section section-white">
+    <div class="wrap">
+      {posts.map((p) => (
+        <article class="post">
+          <h2><a href={`/blog/${p.slug}/`}>{p.title}</a></h2>
+          <p class="muted"><time datetime={p.updated}>Aktualizacja: {fmt(p.updated)}</time></p>
+          <p>{p.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .post h2 { margin-top: 0; font-size: var(--s2); }
+  .post h2 a { color: var(--steel); }
+</style>

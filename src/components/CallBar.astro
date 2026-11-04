@@ -1,0 +1,19 @@
+---
+import { site } from '../config/site';
+import PhoneIcon from './PhoneIcon.astro';
+const smsBody = encodeURIComponent('Dzień dobry, potrzebuję pomocy. Adres: ');
+---
+<!-- Pasek widoczny tylko na telefonie: połączenie i SMS jednym kciukiem -->
+<div class="callbar" role="region" aria-label="Szybki kontakt">
+  <a class="cb-call" href={`tel:${site.phones.main.tel}`}><PhoneIcon />Zadzwoń 24/7</a>
+  <a class="cb-sms" href={`sms:${site.phones.main.tel}?body=${smsBody}`}>Wyślij SMS</a>
+  <a class="cb-menu" href="/uslugi/">Usługi</a>
+</div>
+
+<style>
+  .callbar { position: fixed; inset: auto 0 0 0; z-index: 30; display: grid; grid-template-columns: 1.8fr 1fr 1fr; gap: 6px; padding: 8px 8px calc(8px + env(safe-area-inset-bottom)); background: var(--steel); box-shadow: 0 -2px 0 var(--hivis); }
+  .callbar a { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; border-radius: var(--radius); font-weight: 700; font-size: 0.95rem; white-space: nowrap; text-decoration: none; color: #fff; border: 2px solid var(--steel-2); }
+  .callbar :global(svg) { width: 20px; height: 20px; }
+  .cb-call { background: var(--hivis); color: var(--ink) !important; border-color: var(--hivis) !important; font-size: 1.05rem; }
+  @media (min-width: 900px) { .callbar { display: none; } }
+</style>

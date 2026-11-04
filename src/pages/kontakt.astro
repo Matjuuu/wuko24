@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import PhoneIcon from '../components/PhoneIcon.astro';
+import { site } from '../config/site';
+import { breadcrumbSchema, BUSINESS_ID } from '../lib/schema';
+
+const crumbs = [
+  { name: 'Strona główna', href: '/' },
+  { name: 'Kontakt', href: '/kontakt/' },
+];
+const smsBody = encodeURIComponent('Dzień dobry, potrzebuję hydraulika. Problem: ... Adres: ...');
+const page = { '@type': 'ContactPage', name: 'Kontakt', about: { '@id': BUSINESS_ID } };
+---
+<Base
+  title="Kontakt – hydraulik i WUKO Kalisz, tel. 793 149 951"
+  description="Zadzwoń całą dobę: 793 149 951 (hydraulik i WUKO), 793 301 330 (WUKO). Kalisz, ul. Pułaskiego 31. Dojazd do Kalisza, Ostrowa Wlkp. i okolic."
+  schema={[breadcrumbSchema(crumbs), page]}
+>
+  <Crumbs items={crumbs} />
+  <header class="wrap page-head">
+    <h1>Kontakt</h1>
+    <p class="lead prose">Najszybciej przez telefon, o każdej porze. Możesz też wysłać SMS ze zdjęciem problemu i adresem, oddzwonimy.</p>
+  </header>
+
+  <section class="section section-white">
+    <div class="wrap grid">
+      <div class="box">
+        <h2>Hydraulik 24/7 i udrażnianie WUKO</h2>
+        <a class="btn btn-call big" href={`tel:${site.phones.main.tel}`}><PhoneIcon />{site.phones.main.display}</a>
+        <p><a href={`sms:${site.phones.main.tel}?body=${smsBody}`}>Wyślij SMS na ten numer</a></p>
+      </div>
+      <div class="box">
+        <h2>Udrażnianie WUKO</h2>
+        <a class="btn btn-line big dark" href={`tel:${site.phones.second.tel}`}><PhoneIcon />{site.phones.second.display}</a>
+      </div>
+      <div class="box">
+        <h2>Adres</h2>
+        <address>ul. {site.address.street}<br />{site.address.postalCode} {site.address.city}</address>
+        <p><a href={site.mapsUrl} rel="noopener">Otwórz w Mapach Google</a></p>
+        {site.email && <p><a href={`mailto:${site.email}`}>{site.email}</a></p>}
+      </div>
+      <div class="box">
+        <h2>Godziny i teren</h2>
+        <p>{site.hours}.</p>
+        <p>Kalisz i okolice, Ostrów Wielkopolski i okolice.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .grid { display: grid; gap: 32px 48px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .box h2 { font-size: var(--s2); margin: 0 0 0.5em; }
+  .big { font-size: var(--s2); font-variation-settings: 'wdth' 72; font-weight: 800; margin-bottom: 0.6em; }
+  .dark { color: var(--steel); }
+  address { font-style: normal; font-size: var(--s1); margin-bottom: 0.5em; }
+</style>

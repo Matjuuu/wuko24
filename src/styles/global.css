@@ -1,0 +1,115 @@
+@import '@fontsource-variable/archivo/wdth.css';
+
+:root {
+  --steel: #16303f;      /* głęboki stalowy granat – kolor rur i auta */
+  --steel-2: #24475b;
+  --hivis: #ffc72c;      /* odblaskowy żółty, jak kamizelka i oznakowanie wozu */
+  --paper: #f5f7f7;      /* chłodna, prawie biała */
+  --ink: #102029;
+  --muted: #4d6170;
+  --line: #d5dde2;
+  --alert: #c62d2d;
+
+  --font: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
+  --narrow: 'wdth' 72;
+  --wide: 'wdth' 100;
+
+  --s-1: 0.875rem;
+  --s0: 1.0625rem;
+  --s1: 1.25rem;
+  --s2: 1.6rem;
+  --s3: clamp(1.9rem, 4.2vw, 2.6rem);
+  --s4: clamp(2.4rem, 6.5vw, 4.2rem);
+  --s5: clamp(3.2rem, 13vw, 8.5rem);
+
+  --measure: 68ch;
+  --gutter: clamp(16px, 4vw, 40px);
+  --max: 1160px;
+  --radius: 6px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 5rem; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-variation-settings: var(--wide);
+  font-size: var(--s0);
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+  padding-bottom: 76px; /* miejsce na pasek "Zadzwoń" na telefonie */
+}
+@media (min-width: 900px) { body { padding-bottom: 0; } }
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--steel-2); text-underline-offset: 0.18em; }
+a:hover { color: var(--ink); }
+:focus-visible { outline: 3px solid var(--hivis); outline-offset: 3px; border-radius: 2px; }
+
+h1, h2, h3 {
+  font-variation-settings: var(--narrow);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+h1 { font-size: var(--s4); }
+h2 { font-size: var(--s3); margin-top: 1.6em; }
+h3 { font-size: var(--s2); }
+p { margin: 0 0 1em; max-width: var(--measure); }
+ul { padding-left: 1.2em; max-width: var(--measure); }
+li { margin-bottom: 0.4em; }
+li::marker { color: var(--steel-2); }
+
+.wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.prose { max-width: var(--measure); }
+.lead { font-size: var(--s1); line-height: 1.5; color: var(--ink); }
+.muted { color: var(--muted); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Przyciski */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.6em;
+  padding: 0.85em 1.3em;
+  border-radius: var(--radius);
+  font-weight: 700; font-size: var(--s0);
+  text-decoration: none; line-height: 1.1;
+  border: 2px solid transparent;
+}
+.btn svg { width: 1.15em; height: 1.15em; flex: none; }
+.btn-call { background: var(--hivis); color: var(--ink); }
+.btn-call:hover { background: #ffd65c; color: var(--ink); }
+.btn-line { border-color: currentColor; color: inherit; }
+.btn-line:hover { color: inherit; background: rgb(255 255 255 / 0.08); }
+
+/* Sekcje */
+.section { padding: clamp(48px, 8vw, 96px) 0; }
+.section > .wrap > h2:first-child { margin-top: 0; }
+.section-steel { background: var(--steel); color: #e9f0f3; }
+.section-steel a { color: #fff; }
+.section-steel .muted { color: #a9bcc7; }
+.section-white { background: #fff; border-block: 1px solid var(--line); }
+
+/* "Rura" – jedyny powtarzalny motyw: gruby przewód z kielichem */
+.pipe { height: 10px; background: var(--steel); position: relative; border-radius: 5px; margin: 0; border: 0; }
+.pipe::before, .pipe::after { content: ''; position: absolute; top: -4px; width: 22px; height: 18px; border-radius: 3px; background: var(--steel-2); }
+.pipe::before { left: 18%; } .pipe::after { left: 64%; }
+
+/* Szybkie fakty – czytelne dla ludzi, łatwe do zacytowania przez AI */
+.facts { display: grid; grid-template-columns: max-content 1fr; gap: 0.5em 1.5em; margin: 1.5em 0 0; padding: 1.25em 1.4em; background: #fff; border-left: 6px solid var(--hivis); border-radius: 0 var(--radius) var(--radius) 0; max-width: var(--measure); }
+.facts dt { font-weight: 700; }
+.facts dd { margin: 0; }
+@media (max-width: 520px) { .facts { grid-template-columns: 1fr; gap: 0.1em; } .facts dd { margin-bottom: 0.6em; } }
+
+/* Okruszki */
+.crumbs { font-size: var(--s-1); padding-top: 18px; color: var(--muted); }
+.crumbs ol { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.3em; max-width: none; }
+.crumbs li { margin: 0; }
+.crumbs li + li::before { content: '/'; margin-right: 0.3em; color: var(--line); }
+.crumbs a { color: var(--muted); }
+
+/* Nagłówek podstrony */
+.page-head { padding-top: 28px; padding-bottom: clamp(32px, 6vw, 56px); }
+.page-head h1 { max-width: 20ch; }

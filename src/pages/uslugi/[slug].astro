@@ -1,0 +1,70 @@
+---
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import Faq from '../../components/Faq.astro';
+import CallBlock from '../../components/CallBlock.astro';
+import PhoneIcon from '../../components/PhoneIcon.astro';
+import { site } from '../../config/site';
+import { services, type Service } from '../../data/services';
+import { serviceSchema, faqSchema, breadcrumbSchema } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { s } }));
+}
+const { s } = Astro.props as { s: Service };
+const crumbs = [
+  { name: 'Strona główna', href: '/' },
+  { name: 'Usługi', href: '/uslugi/' },
+  { name: s.name, href: `/uslugi/${s.slug}/` },
+];
+const others = services.filter((o) => o.slug !== s.slug);
+const schema: unknown[] = [serviceSchema(s), breadcrumbSchema(crumbs)];
+if (s.faq.length) schema.push(faqSchema(s.faq));
+---
+<Base title={s.title} description={s.description} schema={schema}>
+  <Crumbs items={crumbs} />
+  <header class="wrap page-head">
+    <h1>{s.h1}</h1>
+    <p class="lead prose">{s.lead}</p>
+    <a class="btn btn-call" href={`tel:${site.phones.main.tel}`}><PhoneIcon />Zadzwoń: {site.phones.main.display}</a>
+    <dl class="facts">
+      {s.facts.map((f) => <><dt>{f.label}</dt><dd>{f.value}</dd></>)}
+    </dl>
+  </header>
+
+  <hr class="pipe" />
+
+  <article class="section section-white">
+    <div class="wrap body">
+      {s.sections.map((sec) => (
+        <section>
+          <h2>{sec.h2}</h2>
+          {sec.body?.map((p) => <p>{p}</p>)}
+          {sec.list && <ul>{sec.list.map((li) => <li>{li}</li>)}</ul>}
+        </section>
+      ))}
+      <Faq items={s.faq} />
+    </div>
+  </article>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="first">Pozostałe usługi</h2>
+      <ul class="others">
+        {others.map((o) => <li><a href={`/uslugi/${o.slug}/`}>{o.name}</a></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <CallBlock />
+</Base>
+
+<style>
+  .body > section:first-child h2 { margin-top: 0; }
+  .body .faq { margin-top: 2.5em; }
+  .first { margin-top: 0; }
+  .others { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; max-width: none; }
+  .others li { margin: 0; }
+  .others a { display: inline-block; padding: 10px 14px; border: 2px solid var(--line); border-radius: var(--radius); text-decoration: none; font-weight: 600; color: var(--steel); background: #fff; }
+  .others a:hover { border-color: var(--steel); }
+</style>

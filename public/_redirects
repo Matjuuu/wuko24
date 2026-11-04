@@ -1,0 +1,14 @@
+# Cloudflare Pages – przekierowania 301 ze starego WordPressa
+/nasze-uslugi            /uslugi/                                     301
+/nasze-uslugi/           /uslugi/                                     301
+/2023/09/26/czyszczenie-kanalizacji-metoda-wuko   /blog/czyszczenie-kanalizacji-metoda-wuko/  301
+/2023/09/26/czyszczenie-kanalizacji-metoda-wuko/  /blog/czyszczenie-kanalizacji-metoda-wuko/  301
+/2023/*                  /blog/                                       301
+/author/*                /blog/                                       301
+/category/*              /blog/                                       301
+/feed                    /blog/                                       301
+/feed/                   /blog/                                       301
+/wp-admin/*              /                                            301
+/wp-login.php            /                                            301
+/sitemap_index.xml       /sitemap-index.xml                           301
+/wp-sitemap.xml          /sitemap-index.xml                           301

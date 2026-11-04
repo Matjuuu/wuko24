@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config/site';
+---
+<Base title={`Polityka prywatności | ${site.name}`} description="Informacje o przetwarzaniu danych osobowych na stronie wuko-hydraulik.pl.">
+  <section class="section">
+    <div class="wrap prose">
+      <h1>Polityka prywatności</h1>
+      <p>Administratorem danych jest {site.legalName || site.name}{site.nip && `, NIP ${site.nip}`}, ul. {site.address.street}, {site.address.postalCode} {site.address.city}.</p>
+      <p>Strona nie używa plików cookies ani narzędzi śledzących. Czcionki są ładowane z naszego serwera, bez łączenia z zewnętrznymi usługami.</p>
+      <p>Jeśli zadzwonisz lub wyślesz SMS, Twój numer telefonu i podane informacje (np. adres) wykorzystujemy wyłącznie do kontaktu i wykonania usługi (art. 6 ust. 1 lit. b RODO). Dane przechowujemy przez czas potrzebny do realizacji zlecenia i wymagany przepisami podatkowymi.</p>
+      <p>Masz prawo do dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania oraz wniesienia skargi do Prezesa UODO.</p>
+      <p>Kontakt w sprawie danych: <a href={`tel:${site.phones.main.tel}`}>{site.phones.main.display}</a>{site.email && <>, <a href={`mailto:${site.email}`}>{site.email}</a></>}.</p>
+    </div>
+  </section>
+</Base>
