@@ -1,3 +1,7 @@
-name = "wuko-hydraulik"
-pages_build_output_dir = "dist"
+name = "wuko24"
 compatibility_date = "2026-11-01"
+
+[assets]
+directory = "./dist"
+html_handling = "auto-trailing-slash"
+not_found_handling = "404-page"
